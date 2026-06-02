@@ -1,0 +1,41 @@
+[
+  {
+    "id": "1",
+    "title": "Getting Started with Next.js",
+    "slug": "getting-started-with-nextjs",
+    "excerpt": "Next.js is a React framework that gives you building blocks to create fast, full-stack web applications.",
+    "content": "## Introduction\n\nNext.js is a React framework that gives you building blocks to create fast, full-stack web applications.\n\n## Features\n\n- **File-based routing** — pages are automatically routed based on the file system\n- **Server-side rendering** — pages can be rendered on the server for better SEO\n- **Static site generation** — pages can be pre-rendered at build time\n- **API routes** — build your API directly in Next.js\n\n## Getting Started\n\nRun the development server:\n\n```bash\nnpm run dev\n```\n\nOpen [http://localhost:3000](http://localhost:3000) with your browser to see the result.\n\n## Conclusion\n\nNext.js is a powerful framework for building modern web applications. Give it a try!",
+    "author": "Jane Smith",
+    "coverImage": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop",
+    "tags": ["Next.js", "React", "Web Development"],
+    "published": true,
+    "createdAt": "2026-05-01T10:00:00.000Z",
+    "updatedAt": "2026-05-01T10:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "title": "Mastering Tailwind CSS",
+    "slug": "mastering-tailwind-css",
+    "excerpt": "Tailwind CSS is a utility-first CSS framework packed with classes that let you build any design directly in your markup.",
+    "content": "## What is Tailwind CSS?\n\nTailwind CSS is a utility-first CSS framework packed with classes like `flex`, `pt-4`, `text-center` and `rotate-90` that can be composed to build any design, directly in your markup.\n\n## Why Tailwind?\n\n- No more naming classes\n- No more BEM conventions\n- Responsive design is built in\n- Dark mode support out of the box\n\n## Example\n\n```html\n<div class=\"flex items-center gap-4 p-6 bg-white rounded-xl shadow-lg\">\n  <h2 class=\"text-xl font-semibold\">Hello Tailwind!</h2>\n</div>\n```\n\n## Tips\n\n1. Use the `@apply` directive sparingly — it defeats the purpose\n2. Learn the responsive prefix system: `sm:`, `md:`, `lg:`, `xl:`\n3. Enable dark mode with the `dark:` prefix\n\nHappy styling!",
+    "author": "John Doe",
+    "coverImage": "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=800&auto=format&fit=crop",
+    "tags": ["CSS", "Tailwind", "Design"],
+    "published": true,
+    "createdAt": "2026-05-10T09:00:00.000Z",
+    "updatedAt": "2026-05-10T09:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "title": "TypeScript Tips for React Developers",
+    "slug": "typescript-tips-for-react-developers",
+    "excerpt": "TypeScript adds static typing to JavaScript, which can help you write more reliable and maintainable React code.",
+    "content": "## Introduction\n\nTypeScript adds static typing to JavaScript, which can help you write more reliable and maintainable React code.\n\n## Tip 1: Type Your Props\n\n```tsx\ninterface ButtonProps {\n  label: string;\n  onClick: () => void;\n  variant?: 'primary' | 'secondary';\n}\n\nexport function Button({ label, onClick, variant = 'primary' }: ButtonProps) {\n  return <button onClick={onClick}>{label}</button>;\n}\n```\n\n## Tip 2: Use Generic Hooks\n\n```tsx\nfunction useLocalStorage<T>(key: string, initialValue: T) {\n  // ...\n}\n```\n\n## Tip 3: Discriminated Unions for State\n\n```tsx\ntype State =\n  | { status: 'idle' }\n  | { status: 'loading' }\n  | { status: 'success'; data: Article[] }\n  | { status: 'error'; message: string };\n```\n\nThese patterns will make your codebase much more robust!",
+    "author": "Jane Smith",
+    "coverImage": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&auto=format&fit=crop",
+    "tags": ["TypeScript", "React", "Tips"],
+    "published": true,
+    "createdAt": "2026-05-20T14:00:00.000Z",
+    "updatedAt": "2026-05-20T14:00:00.000Z"
+  }
+]
