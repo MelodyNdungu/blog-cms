@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getArticleById, updateArticle, deleteArticle } from "@/lib/articles";
 
+export const dynamic = "force-static";
+
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const article = getArticleById(id);
