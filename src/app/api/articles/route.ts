@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAllArticles, createArticle } from "@/lib/articles";
 import { ArticleInput } from "@/types/article";
 
-export const dynamic = "force-static";
-
 export async function GET() {
   const articles = getAllArticles();
   return NextResponse.json(articles);
