@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Article, ArticleInput } from "@/types/article";
 
 interface ArticleFormProps {
   initial?: Partial<Article>;
   onSubmit?: (data: ArticleInput) => Promise<void>;
+  draftKey?: string;
 }
 
 type PublishMode = "draft" | "publish" | "scheduled";
@@ -26,10 +27,30 @@ function getInitialPublishMode(initial?: Partial<Article>): PublishMode {
   return "publish";
 }
 
-export default function ArticleForm({ initial, onSubmit }: ArticleFormProps) {
+export default function ArticleForm({ initial, onSubmit, draftKey }: ArticleFormProps) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // ── Draft auto-save ──────────────────────────────────────────────────────
+  const storageKey = draftKey ? `article_draft:${draftKey}` : null;
+  const [savedDraft, setSavedDraft] = useState<{ savedAt: string } | null>(null);
+  const [autoSavedAt, setAutoSavedAt] = useState<string | null>(null);
+  const autoSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const skipFirstSave = useRef(true);
+
+  // Load saved draft metadata on mount
+  useEffect(() => {
+    if (!storageKey) return;
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (raw) {
+        const { savedAt } = JSON.parse(raw) as { savedAt: string };
+        setSavedDraft({ savedAt });
+      }
+    } catch { /* ignore */ }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [form, setForm] = useState({
     title: initial?.title ?? "",
@@ -48,6 +69,49 @@ export default function ArticleForm({ initial, onSubmit }: ArticleFormProps) {
       ? new Date(initial.publishAt).toISOString().slice(0, 16)
       : new Date(Date.now() + 3_600_000).toISOString().slice(0, 16)
   );
+
+  // Auto-save to localStorage whenever the form changes (debounced 2 s)
+  useEffect(() => {
+    if (!storageKey) return;
+    if (skipFirstSave.current) { skipFirstSave.current = false; return; }
+    if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
+    autoSaveTimer.current = setTimeout(() => {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({
+          form, publishMode, scheduledFor,
+          savedAt: new Date().toISOString(),
+        }));
+        setAutoSavedAt(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+      } catch { /* storage unavailable */ }
+    }, 2000);
+    return () => { if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form, publishMode, scheduledFor]);
+
+  function clearDraft() {
+    if (!storageKey) return;
+    try { localStorage.removeItem(storageKey); } catch { /* ignore */ }
+    setAutoSavedAt(null);
+  }
+
+  function restoreDraft() {
+    if (!storageKey) return;
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return;
+      const { form: f, publishMode: pm, scheduledFor: sf } = JSON.parse(raw);
+      setForm(f);
+      setPublishMode(pm);
+      setScheduledFor(sf);
+    } catch { /* ignore */ }
+    setSavedDraft(null);
+  }
+
+  function dismissDraft() {
+    clearDraft();
+    setSavedDraft(null);
+  }
+  // ─────────────────────────────────────────────────────────────────────────
 
   function set<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -147,6 +211,7 @@ export default function ArticleForm({ initial, onSubmit }: ArticleFormProps) {
         publishAt: publishMode === "scheduled" ? new Date(scheduledFor).toISOString() : null,
       };
       if (onSubmit) await onSubmit(data);
+      clearDraft();
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
@@ -169,6 +234,41 @@ export default function ArticleForm({ initial, onSubmit }: ArticleFormProps) {
       {error && (
         <div className="px-4 py-3 rounded-lg text-sm font-medium" style={{ backgroundColor: "#FEF2F2", border: "1px solid #FECACA", color: "#B91C1C" }}>
           {error}
+        </div>
+      )}
+
+      {/* ── Unsaved draft banner ─────────────────────────────────────────── */}
+      {savedDraft && (
+        <div className="flex flex-wrap items-start gap-3 px-4 py-3 rounded-lg text-sm" style={{ backgroundColor: "#FFFBEB", border: "1px solid #FDE68A", color: "#78350F" }}>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold">Unsaved draft found</p>
+            <p className="text-xs mt-0.5 opacity-80">
+              Auto-saved{" "}
+              {new Date(savedDraft.savedAt).toLocaleString([], {
+                month: "short", day: "numeric",
+                hour: "2-digit", minute: "2-digit",
+              })}
+              {" "}— your session may have expired.
+            </p>
+          </div>
+          <div className="flex gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={restoreDraft}
+              className="text-xs font-semibold px-3 py-1.5 rounded-lg"
+              style={{ backgroundColor: "#FDE68A", color: "#78350F" }}
+            >
+              Restore
+            </button>
+            <button
+              type="button"
+              onClick={dismissDraft}
+              className="text-xs font-medium px-3 py-1.5 rounded-lg hover:opacity-70"
+              style={{ color: "#78350F" }}
+            >
+              Dismiss
+            </button>
+          </div>
         </div>
       )}
 
@@ -373,23 +473,28 @@ export default function ArticleForm({ initial, onSubmit }: ArticleFormProps) {
       </div>
 
       {/* ── Actions ───────────────────────────────────── */}
-      <div className="flex justify-end gap-3 pt-4" style={{ borderTop: "1px solid var(--border)" }}>
-        <button
-          type="button"
-          onClick={() => router.back()}
-          className="text-sm px-5 py-2.5 rounded-lg font-medium transition-colors"
-          style={{ border: "1px solid var(--border)", color: "var(--text-primary)", backgroundColor: "var(--bg-surface)" }}
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          disabled={saving}
-          className="text-sm px-5 py-2.5 text-white rounded-lg disabled:opacity-60 transition-colors font-semibold"
-          style={{ backgroundColor: "var(--accent)" }}
-        >
-          {saving ? "Saving…" : initial?.id ? "Update Article" : "Create Article"}
-        </button>
+      <div className="flex items-center justify-between pt-4" style={{ borderTop: "1px solid var(--border)" }}>
+        <span className="text-xs" style={{ color: "var(--text-muted)" }}>
+          {autoSavedAt && <>✓ Draft auto-saved at {autoSavedAt}</>}
+        </span>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="text-sm px-5 py-2.5 rounded-lg font-medium transition-colors"
+            style={{ border: "1px solid var(--border)", color: "var(--text-primary)", backgroundColor: "var(--bg-surface)" }}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={saving}
+            className="text-sm px-5 py-2.5 text-white rounded-lg disabled:opacity-60 transition-colors font-semibold"
+            style={{ backgroundColor: "var(--accent)" }}
+          >
+            {saving ? "Saving…" : initial?.id ? "Update Article" : "Create Article"}
+          </button>
+        </div>
       </div>
     </form>
   );

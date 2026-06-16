@@ -22,7 +22,7 @@ export function getPublishedArticles(): Article[] {
     (a) => a.published && (!a.publishAt || new Date(a.publishAt) <= now)
   );
 }
-
+ 2
 export function getArticleById(id: string): Article | undefined {
   return getAllArticles().find((a) => a.id === id);
 }

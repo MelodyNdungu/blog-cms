@@ -77,12 +77,10 @@ export default function AdminPage() {
             return (
               <div
                 key={article.id}
-                className="flex items-center justify-between px-6 py-4 transition-colors"
+                className="flex items-center justify-between px-6 py-4 transition-colors hover:bg-[var(--accent-light)]"
                 style={{
                   borderTop: i > 0 ? "1px solid var(--border)" : "none",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--accent-light)")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "")}
               >
                 <div className="min-w-0 flex-1">
                   <h2 className="font-semibold truncate" style={{ color: "var(--text-primary)" }}>

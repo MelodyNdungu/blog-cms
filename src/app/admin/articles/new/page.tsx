@@ -28,7 +28,7 @@ export default function NewArticlePage() {
         <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>Fill in the details below to create a new article.</p>
       </div>
       <div className="rounded-2xl shadow-sm p-8" style={{ backgroundColor: "var(--bg-surface)", border: "1px solid var(--border)" }}>
-        <ArticleForm onSubmit={handleCreate} />
+        <ArticleForm draftKey="new" onSubmit={handleCreate} />
       </div>
     </div>
   );

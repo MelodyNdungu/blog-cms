@@ -7,7 +7,11 @@
     "content": "## Introduction\n\nNext.js is a React framework that gives you building blocks to create fast, full-stack web applications.\n\n## Features\n\n- **File-based routing** — pages are automatically routed based on the file system\n- **Server-side rendering** — pages can be rendered on the server for better SEO\n- **Static site generation** — pages can be pre-rendered at build time\n- **API routes** — build your API directly in Next.js\n\n## Getting Started\n\nRun the development server:\n\n```bash\nnpm run dev\n```\n\nOpen [http://localhost:3000](http://localhost:3000) with your browser to see the result.\n\n## Conclusion\n\nNext.js is a powerful framework for building modern web applications. Give it a try!",
     "author": "Jane Smith",
     "coverImage": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop",
-    "tags": ["Next.js", "React", "Web Development"],
+    "tags": [
+      "Next.js",
+      "React",
+      "Web Development"
+    ],
     "published": true,
     "createdAt": "2026-05-01T10:00:00.000Z",
     "updatedAt": "2026-05-01T10:00:00.000Z"
@@ -20,7 +24,11 @@
     "content": "## What is Tailwind CSS?\n\nTailwind CSS is a utility-first CSS framework packed with classes like `flex`, `pt-4`, `text-center` and `rotate-90` that can be composed to build any design, directly in your markup.\n\n## Why Tailwind?\n\n- No more naming classes\n- No more BEM conventions\n- Responsive design is built in\n- Dark mode support out of the box\n\n## Example\n\n```html\n<div class=\"flex items-center gap-4 p-6 bg-white rounded-xl shadow-lg\">\n  <h2 class=\"text-xl font-semibold\">Hello Tailwind!</h2>\n</div>\n```\n\n## Tips\n\n1. Use the `@apply` directive sparingly — it defeats the purpose\n2. Learn the responsive prefix system: `sm:`, `md:`, `lg:`, `xl:`\n3. Enable dark mode with the `dark:` prefix\n\nHappy styling!",
     "author": "John Doe",
     "coverImage": "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=800&auto=format&fit=crop",
-    "tags": ["CSS", "Tailwind", "Design"],
+    "tags": [
+      "CSS",
+      "Tailwind",
+      "Design"
+    ],
     "published": true,
     "createdAt": "2026-05-10T09:00:00.000Z",
     "updatedAt": "2026-05-10T09:00:00.000Z"
@@ -33,9 +41,41 @@
     "content": "## Introduction\n\nTypeScript adds static typing to JavaScript, which can help you write more reliable and maintainable React code.\n\n## Tip 1: Type Your Props\n\n```tsx\ninterface ButtonProps {\n  label: string;\n  onClick: () => void;\n  variant?: 'primary' | 'secondary';\n}\n\nexport function Button({ label, onClick, variant = 'primary' }: ButtonProps) {\n  return <button onClick={onClick}>{label}</button>;\n}\n```\n\n## Tip 2: Use Generic Hooks\n\n```tsx\nfunction useLocalStorage<T>(key: string, initialValue: T) {\n  // ...\n}\n```\n\n## Tip 3: Discriminated Unions for State\n\n```tsx\ntype State =\n  | { status: 'idle' }\n  | { status: 'loading' }\n  | { status: 'success'; data: Article[] }\n  | { status: 'error'; message: string };\n```\n\nThese patterns will make your codebase much more robust!",
     "author": "Jane Smith",
     "coverImage": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&auto=format&fit=crop",
-    "tags": ["TypeScript", "React", "Tips"],
+    "tags": [
+      "TypeScript",
+      "React",
+      "Tips"
+    ],
     "published": true,
     "createdAt": "2026-05-20T14:00:00.000Z",
     "updatedAt": "2026-05-20T14:00:00.000Z"
+  },
+  {
+    "title": "Benefits of mixed nuts ",
+    "slug": "benefits-of-mixed-nuts",
+    "excerpt": "",
+    "content": "## Why Eat Mixed Nuts?\n\n### 1\\. Heart Health\n\nThe monounsaturated and polyunsaturated fats in nuts — especially walnuts and almonds — help reduce LDL (bad) cholesterol and support healthy blood pressure. Regular nut consumption has been linked to a lower risk of cardiovascular disease.\n\n### 2\\. Brain Function\n\nWalnuts are rich in omega-3 fatty acids, which support cognitive function and may help reduce the risk of age-related cognitive decline. Even a small daily portion can make a meaningful difference.\n\n### 3\\. Sustained Energy\n\nUnlike sugary snacks, the combination of healthy fats, protein, and fibre in mixed nuts releases energy slowly, helping you stay fuller for longer and avoid energy crashes.\n\n### 4\\. Rich in Antioxidants\n\nNuts contain polyphenols and Vitamin E, which combat oxidative stress and inflammation in the body. Brazil nuts are an especially potent source of selenium, a powerful antioxidant mineral.\n\n### 5\\. Supports Weight Management\n\nDespite being calorie-dense, studies show that nuts can aid weight management because they promote satiety. The body also doesn't absorb all the fat calories from whole nuts, making them smarter than many processed snacks.\n\n### 6\\. Blood Sugar Control\n\nThe low glycemic index of most nuts means they have minimal impact on blood sugar levels, making them a great snack option for people managing diabetes or insulin resistance.\n\n---\n\n## Calories & Nutritional Value (Per 28g / \\~1 oz Serving)\n\n| Nut | Calories | Protein (g) | Fat (g) | Carbs (g) | Fibre (g) | Key Nutrients |\n| :---- | :---- | :---- | :---- | :---- | :---- | :---- |\n| Almonds | 164 | 6 | 14 | 6 | 3.5 | Vitamin E, Magnesium, Calcium |\n| Walnuts | 185 | 4.3 | 18.5 | 3.9 | 1.9 | Omega-3 (ALA), Copper, Manganese |\n| Cashews | 157 | 5.2 | 12.4 | 9.2 | 0.9 | Zinc, Iron, Magnesium |\n| Pecans | 196 | 2.6 | 20.4 | 3.9 | 2.7 | Manganese, Zinc, Thiamine |\n| Brazil Nuts | 187 | 4.1 | 19 | 3.3 | 2.1 | Selenium (989% DV\\!), Magnesium |\n| Macadamias | 204 | 2.2 | 21.5 | 3.9 | 2.4 | Thiamine, Manganese, Healthy MUFAs |\n| **Mixed Nuts (avg)** | **173** | **4.1** | **15.9** | **5.0** | **2.3** | Broad-spectrum micronutrients |\n\n**DV** \\= Daily Value based on a 2,000 kcal diet.\n\n---\n\n## How Much Should You Eat?\n\nA standard serving is **28g (about a small handful)** per day. This is enough to reap the health benefits without consuming excess calories. Opt for raw or dry- roasted, unsalted varieties to avoid added sodium and oils.\n\n---\n\n## Quick Tips for Adding Mixed Nuts to Your Diet\n\n- **Morning boost:** Stir into oatmeal or yoghurt  \n- **On the go:** Keep a small bag in your bag or desk drawer  \n- **Salad topper:** Sprinkle chopped walnuts or almonds over leafy greens  \n- **Smoothie add-in:** Blend cashews in for a creamy texture and protein boost  \n- **Trail mix:** Combine with dried fruit and dark chocolate for a balanced snack\n\n---\n\n## Cover Image\n\n**Upload your cover image and replace the placeholder URL in the front matter above.**\n\nSuggested image sources (royalty-free):\n\n- [Unsplash – Mixed Nuts](https://unsplash.com/s/photos/mixed-nuts)  \n- [Pexels – Mixed Nuts](https://www.pexels.com/search/mixed%20nuts/)  \n- [Pixabay – Mixed Nuts](https://pixabay.com/images/search/mixed%20nuts/)\n\nOnce you have your image URL, update the front matter:\n\ncover\\_image\\_url: \"https://your-image-url-here.jpg\"\n\n---\n\n*Always consult a registered dietitian or medical professional before making significant changes to your diet, especially if you have nut allergies or existing health conditions.*",
+    "author": "",
+    "coverImage": "https://unsplash.com/s/photos/mixed-nuts",
+    "tags": [],
+    "published": true,
+    "publishAt": null,
+    "id": "cdd48906-6818-4064-9aa6-c9db0a642fe3",
+    "createdAt": "2026-06-16T10:53:38.567Z",
+    "updatedAt": "2026-06-16T11:18:26.025Z"
+  },
+  {
+    "title": "my sample article",
+    "slug": "my-sample-article",
+    "excerpt": "",
+    "content": "my sample article for test purposes only ",
+    "author": "",
+    "coverImage": "",
+    "tags": [],
+    "published": true,
+    "publishAt": null,
+    "id": "ac9adebb-f9b5-4810-af58-8b45bcd32131",
+    "createdAt": "2026-06-16T11:17:35.938Z",
+    "updatedAt": "2026-06-16T11:17:35.938Z"
   }
 ]

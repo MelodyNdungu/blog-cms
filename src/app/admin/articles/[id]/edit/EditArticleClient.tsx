@@ -28,7 +28,7 @@ export default function EditArticleClient({ article }: { article: Article }) {
         <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>Update the article details below.</p>
       </div>
       <div className="rounded-2xl shadow-sm p-8" style={{ backgroundColor: "var(--bg-surface)", border: "1px solid var(--border)" }}>
-        <ArticleForm initial={article} onSubmit={handleUpdate} />
+        <ArticleForm draftKey={article.id} initial={article} onSubmit={handleUpdate} />
       </div>
     </div>
   );
